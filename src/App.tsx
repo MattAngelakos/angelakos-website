@@ -9,6 +9,9 @@ function App() {
   return (
     <>
       <div>
+      <h1 className="text-lg text-red-500">
+        Hello world!
+        </h1>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
