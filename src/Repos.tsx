@@ -255,14 +255,14 @@ const Repos: React.FC = () => {
             </div>
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-                    <div className="relative bg-gray-900 p-6 rounded-lg max-w-4xl w-full">
+                    <div className="relative bg-gray-900 p-6 rounded-lg max-w-4xl w-full border-4 border-purple-400 shadow-xl">
                         <button
-                            className="absolute top-2 right-2 text-gray-400 hover:text-gray-200"
+                            className="absolute top-2 right-2 text-sm text-gray-100 bg-purple-500 hover:bg-purple-600 rounded-md p-2 shadow-lg transition-all font-sans"
                             onClick={closeModal}
                         >
-                            &times;
+                            X
                         </button>
-                        <div className="overflow-auto max-h-[80vh] text-pretty text-justify">
+                        <div className="overflow-auto max-h-[80vh] text-pretty text-justify mt-6">
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                 {currentReadme || ''}
                             </ReactMarkdown>
@@ -270,6 +270,7 @@ const Repos: React.FC = () => {
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
