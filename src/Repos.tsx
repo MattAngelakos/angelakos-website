@@ -10,6 +10,25 @@ interface Repo {
     homepage?: string;
 }
 
+const languageColors: Record<string, string> = {
+    JavaScript: '#f1e05a',
+    TypeScript: '#3178c6',
+    Python: '#3572A5',
+    Java: '#b07219',
+    C: '#555555',
+    'C++': '#f34b7d',
+    HTML: '#e34c26',
+    CSS: '#563d7c',
+    Ruby: '#701516',
+    Shell: '#89e051',
+    PHP: '#4F5D95',
+    Go: '#00ADD8',
+    Rust: '#dea584',
+    Erlang: '#FF69B4',
+    Handlebars: '#FFA500',
+    'Jupyter Notebook': '#ff4d01'
+};
+
 const Repos: React.FC = () => {
     const [repos, setRepos] = useState<Repo[]>([]);
     const [readmes, setReadmes] = useState<Record<string, string | null>>({});
@@ -17,7 +36,6 @@ const Repos: React.FC = () => {
     const [languages, setLanguages] = useState<
         Record<string, { name: string; percentage: string }[]>
     >({});
-
     const [error, setError] = useState<string | null>(null);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [currentReadme, setCurrentReadme] = useState<string | null>(null);
@@ -125,7 +143,6 @@ const Repos: React.FC = () => {
 
         const results = await Promise.all(languagePromises);
 
-        // Fix: Add type for `languageMap`
         const languageMap: Record<string, { name: string; percentage: string }[]> = results.reduce(
             (acc, curr) => {
                 acc[curr.name] = curr.languages;
@@ -165,76 +182,90 @@ const Repos: React.FC = () => {
                 <h1 className="text-4xl font-bold text-center mb-8">
                     My GitHub Repositories
                 </h1>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {repos.map((repo) => (
-                        <li
-                            key={repo.id}
-                            className="bg-opacity-80 bg-black rounded-lg shadow-lg p-6 flex flex-col justify-between border border-gray-700 hover:shadow-xl transition-shadow duration-300"
-                        >
-                            <div>
-                                <h2 className="text-xl font-bold">
-                                    <a
-                                        href={repo.html_url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="hover:underline text-purple-400"
-                                    >
-                                        {repo.name}
-                                    </a>
-                                </h2>
-                                {repo.description && (
-                                    <p className="text-gray-300 mt-2">{repo.description}</p>
-                                )}
-                            </div>
-                            {languages[repo.name]?.length ? (
-                                <div className="mt-2">
-                                    <p className="text-gray-400 text-sm">
-                                        Languages:
-                                    </p>
-                                    <ul className="text-gray-400 text-sm ml-4 list-disc">
-                                        {languages[repo.name]?.map((lang) => (
-                                            <li key={lang.name}>
-                                                {lang.name}: {lang.percentage}%
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ) : null}
-
-                            <div className="mt-4">
-                                {repo.homepage && (
-                                    <a
-                                        href={repo.homepage}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-block text-sm text-purple-400 hover:underline"
-                                    >
-                                        Deployment
-                                    </a>
-                                )}
-                                {readmes[repo.name] && (
-                                    <><br></br><button
-                                        className="text-sm text-gray-400 hover:text-gray-200 mt-4"
-                                        onClick={() => openModal(readmes[repo.name])}
-                                    >
-                                        View README
-                                    </button></>
-                                )}
-                            </div>
-                        </li>
+                       <li
+                       key={repo.id}
+                       className="bg-black border border-gray-700 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300"
+                   >
+                       <div>
+                           <h2 className="text-xl font-bold">
+                               <a
+                                   href={repo.html_url}
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   className="hover:underline text-purple-400"
+                               >
+                                   {repo.name}
+                               </a>
+                           </h2>
+                           {repo.homepage && (
+                                   <a
+                                       href={repo.homepage}
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       className="inline-block text-sm text-purple-400 hover:underline"
+                                   >
+                                       Deployment
+                                   </a>
+                               )}
+                           <p
+                               className="text-gray-300 mt-2 min-h-[3rem] text-left"
+                           >
+                               {repo.description || 'No description available.'}
+                           </p>
+                       </div>
+                       {languages[repo.name]?.length ? (
+                           <div className="mt-4 pt-4 border-t border-gray-600 min-h-[4rem]">
+                               <p className="text-gray-400 text-sm mb-2">Languages:</p>
+                               <ul className="flex flex-wrap gap-2">
+                                   {languages[repo.name]?.map((lang) => (
+                                       <li
+                                           key={lang.name}
+                                           className="flex items-center gap-2"
+                                       >
+                                           <span
+                                               className="inline-block w-3 h-3 rounded-full"
+                                               style={{
+                                                   backgroundColor: languageColors[lang.name] || '#ccc',
+                                               }}
+                                           ></span>
+                                           <span>{lang.name}: {lang.percentage}%</span>
+                                       </li>
+                                   ))}
+                               </ul>
+                           </div>
+                       ) : (
+                           <div className="mt-4 pt-4 border-t border-gray-600 min-h-[4rem]">
+                               <p className="text-gray-400 text-sm">No language data available.</p>
+                           </div>
+                       )}
+                       {(repo.homepage || readmes[repo.name]) && (
+                           <div className="mt-4 pt-4 border-t border-gray-600">
+                               {readmes[repo.name] && (
+                                   <button
+                                       className="text-sm text-gray-400 hover:text-gray-200 mt-2"
+                                       onClick={() => openModal(readmes[repo.name])}
+                                   >
+                                       View README
+                                   </button>
+                               )}
+                           </div>
+                       )}
+                   </li>                   
                     ))}
                 </ul>
             </div>
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 text-start">
-                    <div className="relative bg-gradient-to-r from-black via-[#2d2a4a] to-[#1e1836] animate-gradient-move p-6 rounded-lg max-w-4xl w-full">
+                <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+                    <div className="relative bg-gray-900 p-6 rounded-lg max-w-4xl w-full">
                         <button
                             className="absolute top-2 right-2 text-gray-400 hover:text-gray-200"
                             onClick={closeModal}
                         >
                             &times;
                         </button>
-                        <div className="overflow-auto max-h-[80vh]">
+                        <div className="overflow-auto max-h-[80vh] text-pretty text-justify">
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
                                 {currentReadme || ''}
                             </ReactMarkdown>
@@ -242,8 +273,6 @@ const Repos: React.FC = () => {
                     </div>
                 </div>
             )}
-
-
         </div>
     );
 };
