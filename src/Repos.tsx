@@ -19,6 +19,8 @@ const Repos: React.FC = () => {
     >({});
 
     const [error, setError] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [currentReadme, setCurrentReadme] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchRepos = async () => {
@@ -135,8 +137,15 @@ const Repos: React.FC = () => {
         setLanguages(languageMap);
     };
 
+    const openModal = (readmeContent: string | null) => {
+        setCurrentReadme(readmeContent);
+        setIsModalOpen(true);
+    };
 
-
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setCurrentReadme(null);
+    };
 
     if (loading) {
         return <p className="text-center text-gray-400 mt-10">Loading...</p>;
@@ -204,22 +213,37 @@ const Repos: React.FC = () => {
                                     </a>
                                 )}
                                 {readmes[repo.name] && (
-                                    <details className="mt-4">
-                                        <summary className="text-sm text-gray-400 cursor-pointer hover:text-gray-200">
-                                            README
-                                        </summary>
-                                        <div className="bg-gray-800 bg-opacity-70 p-4 rounded-md mt-2 overflow-auto text-sm text-gray-300">
-                                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                                                {readmes[repo.name] || ''}
-                                            </ReactMarkdown>
-                                        </div>
-                                    </details>
+                                    <><br></br><button
+                                        className="text-sm text-gray-400 hover:text-gray-200 mt-4"
+                                        onClick={() => openModal(readmes[repo.name])}
+                                    >
+                                        View README
+                                    </button></>
                                 )}
                             </div>
                         </li>
                     ))}
                 </ul>
             </div>
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 text-start">
+                    <div className="relative bg-gradient-to-r from-black via-[#2d2a4a] to-[#1e1836] animate-gradient-move p-6 rounded-lg max-w-4xl w-full">
+                        <button
+                            className="absolute top-2 right-2 text-gray-400 hover:text-gray-200"
+                            onClick={closeModal}
+                        >
+                            &times;
+                        </button>
+                        <div className="overflow-auto max-h-[80vh]">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {currentReadme || ''}
+                            </ReactMarkdown>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
         </div>
     );
 };
