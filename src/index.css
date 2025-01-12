@@ -30,6 +30,7 @@ body {
   min-height: 100vh;
   background: linear-gradient(90deg, #000000, #2d2a4a, #1e1836);
   background-size: 200% 200%;
+  background-color: #1e1836; 
   animation: gradient-move 5s ease infinite;
 }
 
