@@ -182,77 +182,74 @@ const Repos: React.FC = () => {
                 <h1 className="text-4xl font-bold text-center mb-8">
                     My GitHub Repositories
                 </h1>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <ul className="grid grid-cols-1 gap-6">
                     {repos.map((repo) => (
-                       <li
-                       key={repo.id}
-                       className="bg-black border border-gray-700 rounded-lg shadow-lg p-6 flex flex-col justify-between hover:shadow-xl transition-shadow duration-300"
-                   >
-                       <div>
-                           <h2 className="text-xl font-bold">
-                               <a
-                                   href={repo.html_url}
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   className="hover:underline text-purple-400"
-                               >
-                                   {repo.name}
-                               </a>
-                           </h2>
-                           {repo.homepage && (
-                                   <a
-                                       href={repo.homepage}
-                                       target="_blank"
-                                       rel="noopener noreferrer"
-                                       className="inline-block text-sm text-purple-400 hover:underline"
-                                   >
-                                       Deployment
-                                   </a>
-                               )}
-                           <p
-                               className="text-gray-300 mt-2 min-h-[3rem] text-left"
-                           >
-                               {repo.description || 'No description available.'}
-                           </p>
-                       </div>
-                       {languages[repo.name]?.length ? (
-                           <div className="mt-4 pt-4 border-t border-gray-600 min-h-[4rem]">
-                               <p className="text-gray-400 text-sm mb-2">Languages:</p>
-                               <ul className="flex flex-wrap gap-2">
-                                   {languages[repo.name]?.map((lang) => (
-                                       <li
-                                           key={lang.name}
-                                           className="flex items-center gap-2"
-                                       >
-                                           <span
-                                               className="inline-block w-3 h-3 rounded-full"
-                                               style={{
-                                                   backgroundColor: languageColors[lang.name] || '#ccc',
-                                               }}
-                                           ></span>
-                                           <span>{lang.name}: {lang.percentage}%</span>
-                                       </li>
-                                   ))}
-                               </ul>
-                           </div>
-                       ) : (
-                           <div className="mt-4 pt-4 border-t border-gray-600 min-h-[4rem]">
-                               <p className="text-gray-400 text-sm">No language data available.</p>
-                           </div>
-                       )}
-                       {(repo.homepage || readmes[repo.name]) && (
-                           <div className="mt-4 pt-4 border-t border-gray-600">
-                               {readmes[repo.name] && (
-                                   <button
-                                       className="text-sm text-gray-400 hover:text-gray-200 mt-2"
-                                       onClick={() => openModal(readmes[repo.name])}
-                                   >
-                                       View README
-                                   </button>
-                               )}
-                           </div>
-                       )}
-                   </li>                   
+                        <li
+                            key={repo.id}
+                            className="bg-black border border-gray-700 rounded-lg shadow-lg p-6 flex flex-col h-full hover:shadow-xl transition-shadow duration-300"
+                        >
+                            <h2 className="text-xl font-bold mb-4">
+                                <a
+                                    href={repo.html_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:underline text-purple-400"
+                                >
+                                    {repo.name}
+                                </a>
+                            </h2>
+                            <div className="flex flex-col justify-between flex-grow">
+                                <p className="text-gray-300 mb-4">
+                                    {repo.description || 'No description available.'}
+                                </p>
+                                {languages[repo.name]?.length ? (
+                                    <div className="flex-grow flex flex-col items-center justify-center">
+                                        <p className="text-gray-400 text-lg mb-2">Languages:</p>
+                                        <ul className="flex flex-wrap gap-2 justify-center items-center">
+                                            {languages[repo.name].map((lang) => (
+                                                <li key={lang.name} className="flex items-center gap-2">
+                                                    <span
+                                                        className="inline-block w-3 h-3 rounded-full"
+                                                        style={{
+                                                            backgroundColor: languageColors[lang.name] || '#ccc',
+                                                        }}
+                                                    ></span>
+                                                    <span className="text-gray-300">
+                                                        {lang.name}: {lang.percentage}%
+                                                    </span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ) : (
+                                    <div className="flex-grow flex items-center justify-center">
+                                        <p className="text-gray-400 text-sm">No language data available.</p>
+                                    </div>
+                                )}
+                            </div>
+                            {(repo.homepage || readmes[repo.name]) && (
+                                <div className="mt-4 flex justify-center items-center gap-x-4">
+                                    {repo.homepage && (
+                                        <button
+                                            onClick={() =>
+                                                window.open(repo.homepage, '_blank', 'noopener noreferrer')
+                                            }
+                                            className="text-sm text-gray-400 hover:text-gray-200"
+                                        >
+                                            Deployment
+                                        </button>
+                                    )}
+                                    {readmes[repo.name] && (
+                                        <button
+                                            className="text-sm text-gray-400 hover:text-gray-200"
+                                            onClick={() => openModal(readmes[repo.name])}
+                                        >
+                                            View README
+                                        </button>
+                                    )}
+                                </div>
+                            )}
+                        </li>
                     ))}
                 </ul>
             </div>
