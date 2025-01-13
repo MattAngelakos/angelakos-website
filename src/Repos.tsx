@@ -44,11 +44,10 @@ const Repos: React.FC = () => {
         const fetchRepos = async () => {
             const username = import.meta.env.VITE_GITHUB_USERNAME;
             const token = import.meta.env.VITE_GITHUB_TOKEN;
-
             const headers: HeadersInit = token
                 ? { Authorization: `token ${token}` }
                 : {};
-
+            console.log(1)
             try {
                 const response = await fetch(
                     `https://api.github.com/users/${username}/repos`,
@@ -60,6 +59,7 @@ const Repos: React.FC = () => {
                 }
 
                 const data: Repo[] = await response.json();
+                console.log(data)
                 setRepos(data);
                 await fetchReadmes(data, username, headers);
                 await fetchLanguages(data, username, headers);
