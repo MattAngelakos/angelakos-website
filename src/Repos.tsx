@@ -186,7 +186,7 @@ const Repos: React.FC = () => {
                     {repos.map((repo) => (
                         <li
                             key={repo.id}
-                            className="bg-black border border-gray-700 rounded-lg shadow-lg p-6 flex flex-col h-full hover:shadow-xl transition-shadow duration-300"
+                            className="bg-black border border-gray-700 rounded-lg p-6 flex flex-col h-full transition-shadow duration-300 shadow-purple-glow"
                         >
                             <h2 className="text-xl font-bold mb-4">
                                 <a

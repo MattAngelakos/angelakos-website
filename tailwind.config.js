@@ -34,7 +34,10 @@ export default {
       },
       fontFamily: {
         web: ["Web", "ui-serif"]
-      }
+      },
+      boxShadow: {
+        'purple-glow': '0 0 15px 3px rgba(75, 0, 130, 0.8)'
+      },
     },
   },
   plugins: [],
