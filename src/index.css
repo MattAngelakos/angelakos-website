@@ -6,6 +6,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  color-scheme: dark;
   color: rgba(255, 255, 255, 0.87);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,63 +14,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(90deg, #000000, #2d2a4a, #1e1836);
+  background: linear-gradient(115deg, #000000, #2d2a4a, #1e1836);
   background-size: 200% 200%;
-  background-color: #1e1836; 
-  animation: gradient-move 5s ease infinite;
+  background-color: #1e1836;
+  animation: gradient-move 15s ease infinite;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+::selection {
+  background-color: rgba(168, 85, 247, 0.4);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
+a:focus-visible,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px solid #a855f7;
+  outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 @keyframes gradient-move {
   0% {
     background-position: 0% 50%;
@@ -82,9 +50,79 @@ button:focus-visible {
   }
 }
 
-@layer base {
-  @font-face {
-      font-family: "Web";
-      src: url("../public/Tirto_Writter.ttf");
+/* READMEs are rendered from markdown; restore the element styles Tailwind's reset removes. */
+.markdown-body {
+  color: #d1d5db;
+  line-height: 1.7;
+}
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  color: #ffffff;
+  font-weight: 700;
+  margin: 1.25em 0 0.5em;
+  line-height: 1.3;
+}
+.markdown-body h1 { font-size: 1.5rem; }
+.markdown-body h2 { font-size: 1.25rem; }
+.markdown-body h3 { font-size: 1.1rem; }
+.markdown-body p { margin: 0.75em 0; }
+.markdown-body a {
+  color: #c4b5fd;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.markdown-body ul { list-style: disc; padding-left: 1.5em; margin: 0.75em 0; }
+.markdown-body ol { list-style: decimal; padding-left: 1.5em; margin: 0.75em 0; }
+.markdown-body li { margin: 0.25em 0; }
+.markdown-body code {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.15em 0.35em;
+  font-size: 0.875em;
+}
+.markdown-body pre {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1em;
+  overflow-x: auto;
+  margin: 0.75em 0;
+}
+.markdown-body pre code {
+  background: none;
+  padding: 0;
+}
+.markdown-body img { max-width: 100%; }
+.markdown-body table {
+  border-collapse: collapse;
+  margin: 0.75em 0;
+  display: block;
+  overflow-x: auto;
+}
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.4em 0.75em;
+}
+.markdown-body blockquote {
+  border-left: 3px solid #a855f7;
+  padding-left: 1em;
+  margin: 0.75em 0;
+  color: #9ca3af;
+}
+.markdown-body hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  margin: 1.5em 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  body {
+    animation: none;
   }
 }

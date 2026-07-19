@@ -6,37 +6,8 @@ export default {
   ],
   theme: {
     extend: {
-      animation: {
-        typing: 'typing 2s steps(30) 1s forwards, blink 0.75s step-end infinite',
-        'gradient-move': 'gradientMove 5s ease infinite',
-      },
-      keyframes: {
-        typing: {
-          '0%': { width: '0' },
-          '100%': { width: '100%' },
-        },
-        blink: {
-          '0%': { borderColor: 'transparent' },
-          '50%': { borderColor: 'transparent' },
-          '100%': { borderColor: 'black' },
-        },
-        gradientMove: {
-          '0%, 100%': {
-            backgroundPosition: '0% 50%',
-          },
-          '50%': {
-            backgroundPosition: '100% 50%',
-          },
-        },
-      },
-      backgroundImage: {
-        'dark-gradient': 'linear-gradient(90deg, #000000, #2d2a4a, #1e1836)',
-      },
-      fontFamily: {
-        web: ["Web", "ui-serif"]
-      },
       boxShadow: {
-        'purple-glow': '0 0 15px 3px rgba(75, 0, 130, 0.8)'
+        'purple-glow': '0 0 20px 2px rgba(126, 34, 206, 0.35)'
       },
     },
   },
